@@ -1,5 +1,5 @@
 -- Run from the folder containing FastSignal, DenseSignal, GoodSignal and SimpleSignal.
--- luneblox run SignalTable.luneblox.luau [interpreted|native] [smoke|full] [output.json]
+-- luneblox run benchmark.luneblox.luau [interpreted|native] [smoke|full] [output.json]
 local fs = require("@lune/fs")
 local luau = require("@lune/luau")
 local serde = require("@lune/serde")
@@ -10,7 +10,7 @@ local profile = process.args[2] or "full"
 assert(mode == "interpreted" or mode == "native", "Expected interpreted or native")
 assert(profile == "smoke" or profile == "full", "Expected smoke or full")
 assert(#process.args <= 3, "Usage: [interpreted|native] [smoke|full] [output.json]")
-local output = process.args[3] or string.format("SignalTable.%s.%s.%d.json", mode, profile, os.time())
+local output = process.args[3] or string.format("benchmark.%s.%s.%d.json", mode, profile, os.time())
 assert(not fs.isFile(output) and not fs.isDir(output), "Output exists; choose another filename: " .. output)
 local names = { "DenseSignal", "FastSignal", "GoodSignal", "SimpleSignal" }
 local cases = { "CreateAndFire", "ConnectAndDisconnect", "FireWithNoConnections", "Fire", "FireManyArguments", "FireManyHandlers", "FireYieldingHandler", "WaitOnEvent" }
