@@ -1,0 +1,486 @@
+{
+  "AdaptedSourceSHA256": {
+    "DenseSignal": "b7946ab0e9086fbe49a83f9974f61abab27bbe8cd06f431bf22b7662d01e8935",
+    "FastSignal": "a7769c5b9d059ecb27ca67954579e63fe3c7a07d05b4f57c1447fdf7000f9a40",
+    "GoodSignal": "10f7582a62e085e84297fd7841a455e356d13898434cf28d7836b6af61bb28ea",
+    "SimpleSignal": "6b08c2c08bbee95dec113ecabc09e4e2f53c0a8152aedeb74dd049662da05c84"
+  },
+  "Architecture": "x86_64",
+  "AverageMicroseconds": {
+    "DenseSignal": 0.6599999687750824,
+    "FastSignal": 0.7270001489294893,
+    "GoodSignal": 7.610571439207498,
+    "SimpleSignal": 7.539571410494058
+  },
+  "Config": {
+    "Arguments": 32,
+    "Handlers": 100,
+    "Iterations": 100,
+    "Mode": "native",
+    "OptimizationLevel": 2,
+    "Profile": "smoke",
+    "Repeats": 1,
+    "Samples": 3,
+    "Warmups": 1
+  },
+  "Method": "Median of repetition medians, microseconds per iteration. Rotating module order. Fresh fixtures, full GC after setup. Setup/GC/verify/cleanup excluded; callback work included. All modules compiled at O2 with matching codegen request; native compilation of every function is not guaranteed. Lexical task injection, no custom environment. Avg uses only the seven workloads supported by all four modules.",
+  "OS": "windows",
+  "RobloxFastFlags": true,
+  "Rows": [
+    {
+      "Case": "CreateAndFire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.2029999996011611,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        0.00002029999996011611,
+        0.000021899999410379678,
+        0.00002010000025620684
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "CreateAndFire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.19200000679120421,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        0.000018999999156221747,
+        0.00001920000067912042,
+        0.00001920000067912042
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "CreateAndFire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.5870000131835695,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.000058700001318356954,
+        0.00005750000127591193,
+        0.00005899999996472616
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "CreateAndFire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.580000014451798,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.000058000001445179805,
+        0.00005760000021837186,
+        0.00005849999979545828
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "ConnectAndDisconnect",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.11699999959091656,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        0.000011699999959091656,
+        0.000011300000551273115,
+        0.000011699999959091656
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "ConnectAndDisconnect",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.08200000593205914,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        8.200000593205914e-6,
+        8.299999535665847e-6,
+        7.99999907030724e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "ConnectAndDisconnect",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.09100000170292333,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        9.20000093174167e-6,
+        9.100000170292333e-6,
+        8.999999408842996e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "ConnectAndDisconnect",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.09100000170292333,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        9.0000012278324e-6,
+        9.100000170292333e-6,
+        9.199999112752266e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireWithNoConnections",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.022999993234407157,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        2.3000011424301192e-6,
+        2.1999985619913787e-6,
+        2.2999993234407157e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireWithNoConnections",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.03600000127335079,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        3.5000011848751456e-6,
+        3.600000127335079e-6,
+        3.600000127335079e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireWithNoConnections",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.021000014385208488,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        2.099999619531445e-6,
+        2.200000380980782e-6,
+        2.1000014385208488e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireWithNoConnections",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.020999996195314452,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        2.200000380980782e-6,
+        2.099999619531445e-6,
+        2.099999619531445e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "Fire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.0399999953515362,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        4.100000296602957e-6,
+        3.99999953515362e-6,
+        3.99999953515362e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "Fire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.07800001185387373,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        7.800001185387373e-6,
+        7.900000127847306e-6,
+        7.3999999585794285e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "Fire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.4830000034417026,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.00004799999987881165,
+        0.00004830000034417026,
+        0.00004850000004807953
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "Fire",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.486999997519888,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.000048800000513438135,
+        0.0000486999997519888,
+        0.000047700001232442446
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyArguments",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.32300000384566374,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        0.000033399999665562063,
+        0.000032100000680657104,
+        0.000032300000384566374
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyArguments",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.3769999966607429,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        0.00003769999966607429,
+        0.000037099998735357076,
+        0.000038300000596791506
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyArguments",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.7699999989417847,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.00017699999989417847,
+        0.0001754000004439149,
+        0.00017840000145952217
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyArguments",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.7750000006344635,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.0001771000006556278,
+        0.00017830000069807284,
+        0.00017750000006344635
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyHandlers",
+      "Iterations": 1,
+      "MedianMicroseconds": 2.599999788799323,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        3.4000004234258085e-6,
+        2.499999027349986e-6,
+        2.599999788799323e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyHandlers",
+      "Iterations": 1,
+      "MedianMicroseconds": 3.0000010156072676,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        3.200000719516538e-6,
+        2.999999196617864e-6,
+        3.0000010156072676e-6
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyHandlers",
+      "Iterations": 1,
+      "MedianMicroseconds": 48.50000004807953,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.00004850000004807953,
+        0.0000486999997519888,
+        0.00004839999928663019
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireManyHandlers",
+      "Iterations": 1,
+      "MedianMicroseconds": 47.99999987881165,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.00004769999941345304,
+        0.00004799999987881165,
+        0.00004839999928663019
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireYieldingHandler",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.9580000005371403,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.00009670000144978985,
+        0.00009580000005371403,
+        0.00009529999988444615
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "FireYieldingHandler",
+      "Iterations": 100,
+      "MedianMicroseconds": 0.9630000022298191,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.0000959999997576233,
+        0.00009630000022298191,
+        0.00009630000022298191
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "WaitOnEvent",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.3140000010025688,
+      "Module": "DenseSignal",
+      "RawSeconds": [
+        0.00013649999891640618,
+        0.00013140000010025688,
+        0.00013140000010025688
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "WaitOnEvent",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.3240000043879263,
+      "Module": "FastSignal",
+      "RawSeconds": [
+        0.00013209999997343402,
+        0.00013240000043879263,
+        0.00013589999980467837
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "WaitOnEvent",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.8219999947177712,
+      "Module": "GoodSignal",
+      "RawSeconds": [
+        0.00018219999947177712,
+        0.00017999999909079634,
+        0.0001833000005717622
+      ],
+      "Repeat": 1
+    },
+    {
+      "Case": "WaitOnEvent",
+      "Iterations": 100,
+      "MedianMicroseconds": 1.8229999841423705,
+      "Module": "SimpleSignal",
+      "RawSeconds": [
+        0.0001824000009946758,
+        0.00018229999841423705,
+        0.000180200000613695
+      ],
+      "Repeat": 1
+    }
+  ],
+  "RunnerJitEnvironment": "default",
+  "RunnerSHA256": "d587aa4ccd7b0d31618ff922d10e923d621bfd1ddb44c9e23d0110cac0ed8bfe",
+  "Runtime": "LuneBlox 0.10.16+740",
+  "SourceSHA256": {
+    "DenseSignal": "b21213e74ab5ab82256767b4644f81b03f3e323463793325b4bdb5d95df2df29",
+    "FastSignal": "cfea725cd6279956510dcc79a318cb4691de3e9494bb1a9c4550c420a1fe414e",
+    "GoodSignal": "d9e819a8f71f2bf51887d2a9ddc5cef46bf4e87c4ee2a48d2c77e8321cc76e11",
+    "SimpleSignal": "66b8dc657a46f53583e55f67ca51ad9fe569874158ed5c5adc6af8ceaaaebd5c"
+  },
+  "Summary": [
+    {
+      "Case": "CreateAndFire",
+      "Microseconds": {
+        "DenseSignal": 0.2029999996011611,
+        "FastSignal": 0.19200000679120421,
+        "GoodSignal": 0.5870000131835695,
+        "SimpleSignal": 0.580000014451798
+      }
+    },
+    {
+      "Case": "ConnectAndDisconnect",
+      "Microseconds": {
+        "DenseSignal": 0.11699999959091656,
+        "FastSignal": 0.08200000593205914,
+        "GoodSignal": 0.09100000170292333,
+        "SimpleSignal": 0.09100000170292333
+      }
+    },
+    {
+      "Case": "FireWithNoConnections",
+      "Microseconds": {
+        "DenseSignal": 0.022999993234407157,
+        "FastSignal": 0.03600000127335079,
+        "GoodSignal": 0.021000014385208488,
+        "SimpleSignal": 0.020999996195314452
+      }
+    },
+    {
+      "Case": "Fire",
+      "Microseconds": {
+        "DenseSignal": 0.0399999953515362,
+        "FastSignal": 0.07800001185387373,
+        "GoodSignal": 0.4830000034417026,
+        "SimpleSignal": 0.486999997519888
+      }
+    },
+    {
+      "Case": "FireManyArguments",
+      "Microseconds": {
+        "DenseSignal": 0.32300000384566374,
+        "FastSignal": 0.3769999966607429,
+        "GoodSignal": 1.7699999989417847,
+        "SimpleSignal": 1.7750000006344635
+      }
+    },
+    {
+      "Case": "FireManyHandlers",
+      "Microseconds": {
+        "DenseSignal": 2.599999788799323,
+        "FastSignal": 3.0000010156072676,
+        "GoodSignal": 48.50000004807953,
+        "SimpleSignal": 47.99999987881165
+      }
+    },
+    {
+      "Case": "FireYieldingHandler",
+      "Microseconds": {
+        "DenseSignal": "N/A",
+        "FastSignal": "N/A",
+        "GoodSignal": 0.9580000005371403,
+        "SimpleSignal": 0.9630000022298191
+      }
+    },
+    {
+      "Case": "WaitOnEvent",
+      "Microseconds": {
+        "DenseSignal": 1.3140000010025688,
+        "FastSignal": 1.3240000043879263,
+        "GoodSignal": 1.8219999947177712,
+        "SimpleSignal": 1.8229999841423705
+      }
+    }
+  ],
+  "TimestampUnix": 1791661052,
+  "ValidatedExecutions": 120,
+  "Workloads": {
+    "ConnectAndDisconnect": "Connect + Disconnect on an existing empty signal",
+    "CreateAndFire": "New + store signal + Connect + Fire; cleanup excluded",
+    "Fire": "Fire(1) with one counter/checksum listener",
+    "FireManyArguments": "Fire with 32 numbers; one listener checks argument count and sums all values",
+    "FireManyHandlers": "One Fire(1) dispatching 100 counter/checksum listeners",
+    "FireWithNoConnections": "Fire with zero listeners",
+    "FireYieldingHandler": "One Fire + handler coroutine.yield + suspension assertion + task.spawn resume; not frame latency",
+    "WaitOnEvent": "Create/store/start waiter coroutine + Wait subscription + Fire + waiter completion"
+  }
+}

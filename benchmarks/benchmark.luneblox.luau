@@ -1,5 +1,5 @@
 -- Run from the folder containing FastSignal, DenseSignal, GoodSignal and SimpleSignal.
--- luneblox run SignalTable.luneblox.luau [interpreted|native] [smoke|full] [output.json]
+-- luneblox run benchmarks/benchmark.luneblox.luau [interpreted|native] [smoke|full] [output.json]
 local fs = require("@lune/fs")
 local luau = require("@lune/luau")
 local serde = require("@lune/serde")
@@ -10,7 +10,7 @@ local profile = process.args[2] or "full"
 assert(mode == "interpreted" or mode == "native", "Expected interpreted or native")
 assert(profile == "smoke" or profile == "full", "Expected smoke or full")
 assert(#process.args <= 3, "Usage: [interpreted|native] [smoke|full] [output.json]")
-local output = process.args[3] or string.format("SignalTable.%s.%s.%d.json", mode, profile, os.time())
+local output = process.args[3] or string.format("benchmarks/benchmark.%s.%s.%d.json", mode, profile, os.time())
 assert(not fs.isFile(output) and not fs.isDir(output), "Output exists; choose another filename: " .. output)
 local names = { "DenseSignal", "FastSignal", "GoodSignal", "SimpleSignal" }
 local cases = { "CreateAndFire", "ConnectAndDisconnect", "FireWithNoConnections", "Fire", "FireManyArguments", "FireManyHandlers", "FireYieldingHandler", "WaitOnEvent" }
@@ -144,7 +144,7 @@ end
 local report = {
     Runtime = _VERSION, OS = process.os, Architecture = process.arch, TimestampUnix = os.time(),
     Config = config, SourceSHA256 = hashes, AdaptedSourceSHA256 = adaptedHashes,
-    RunnerSHA256 = serde.hash("sha256", fs.readFile("benchmark.luneblox.luau")),
+    RunnerSHA256 = serde.hash("sha256", fs.readFile("benchmarks/benchmark.luneblox.luau")),
     RobloxFastFlags = process.env.LUNE_ROBLOX_FFLAGS ~= "0",
     RunnerJitEnvironment = process.env.LUNE_LUAU_JIT or "default",
     Method = "Median of repetition medians, microseconds per iteration. Rotating module order. Fresh fixtures, full GC after setup. Setup/GC/verify/cleanup excluded; callback work included. All modules compiled at O2 with matching codegen request; native compilation of every function is not guaranteed. Lexical task injection, no custom environment. Avg uses only the seven workloads supported by all four modules.",
