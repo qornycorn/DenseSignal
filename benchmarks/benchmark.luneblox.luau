@@ -1,9 +1,6 @@
 -- Run from the folder containing FastSignal, DenseSignal, GoodSignal and SimpleSignal.
-<<<<<<< HEAD:benchmarks/benchmark.luneblox.luau
 -- luneblox run benchmarks/benchmark.luneblox.luau [interpreted|native] [smoke|full] [output.json]
-=======
 -- luneblox run benchmark.luneblox.luau [interpreted|native] [smoke|full] [output.json]
->>>>>>> 21e0eb9918de7f75315912048a4564b9ed4cfc06:benchmark.luneblox.luau
 local fs = require("@lune/fs")
 local luau = require("@lune/luau")
 local serde = require("@lune/serde")
@@ -14,11 +11,8 @@ local profile = process.args[2] or "full"
 assert(mode == "interpreted" or mode == "native", "Expected interpreted or native")
 assert(profile == "smoke" or profile == "full", "Expected smoke or full")
 assert(#process.args <= 3, "Usage: [interpreted|native] [smoke|full] [output.json]")
-<<<<<<< HEAD:benchmarks/benchmark.luneblox.luau
 local output = process.args[3] or string.format("benchmarks/benchmark.%s.%s.%d.json", mode, profile, os.time())
-=======
 local output = process.args[3] or string.format("benchmark.%s.%s.%d.json", mode, profile, os.time())
->>>>>>> 21e0eb9918de7f75315912048a4564b9ed4cfc06:benchmark.luneblox.luau
 assert(not fs.isFile(output) and not fs.isDir(output), "Output exists; choose another filename: " .. output)
 local names = { "DenseSignal", "FastSignal", "GoodSignal", "SimpleSignal" }
 local cases = { "CreateAndFire", "ConnectAndDisconnect", "FireWithNoConnections", "Fire", "FireManyArguments", "FireManyHandlers", "FireYieldingHandler", "WaitOnEvent" }
