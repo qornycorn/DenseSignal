@@ -1,15 +1,6 @@
 --[[
 This file is for use by Benchmarker (https://boatbomber.itch.io/benchmarker)
-|WARNING| THIS RUNS IN YOUR REAL ENVIRONMENT. |WARNING|
 
-Set ROOT to the folder containing SignalBenchmarkSuite and the signal modules:
-SimpleSignal, GoodSignal and FastSignal. DenseSignal is loaded from ReplicatedStorage.shared.DenseSignal.
-SignalPlus returns a constructor function; Suite.LoadModules adapts it automatically.
-FastSignal uses its Immediate child module so results include completed callbacks in any Studio event mode.
-Do NOT set the "Deferred" attribute on the SignalPlus module (handlers must run synchronously).
-Select one case per run so all bars compare exactly the same workload.
-Run SignalBenchmarkSweep for the entire matrix automatically.
-Compare the Workload profiler section. Total also includes Setup, Verify and Cleanup.
 ]]
 local ROOT = game:GetService("StarterPlayer").StarterPlayerScripts.client.benchmarks
 -- Benchmarker reruns in the same Studio environment. require(original) may
