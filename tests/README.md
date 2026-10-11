@@ -5,9 +5,14 @@ Run from the repository root using the pinned LuneBlox runtime:
 ```sh
 luneblox run tests/dispatch.luneblox.luau native
 luneblox run tests/dispatch.luneblox.luau interpreted
+luneblox run tests/suite.luneblox.luau
 luneblox run benchmarks/performance.luneblox.luau native
 luneblox run benchmarks/benchmark.extended.luneblox.luau native smoke
 ```
+
+Dispatch tests read `src/repstorage/DenseSignal/DenseSignal.luau` by default.
+The suite regression checks loading from `ReplicatedStorage.shared.DenseSignal`
+even when a stale benchmark-local copy exists, plus FastSignal.Immediate selection.
 
 The regression suite fails immediately on an unmet expectation. Its 18 groups cover removal
 of pending callbacks, clear/reconnect, nested Fire/Once, callback errors, suspended

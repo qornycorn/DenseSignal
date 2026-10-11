@@ -58,7 +58,9 @@ function Connection.Disconnect<T...>(self: ConnectionImpl<T...>): ()
 	local DenseSignal = self._DenseSignal
 	local index = self._index
 	local connections = DenseSignal._connections
-	if connections[index] ~= self then return end
+	if connections[index] ~= self then
+		return
+	end
 	local handlers = DenseSignal._handlers
 	local last = #handlers
 	local moved = connections[last]

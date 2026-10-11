@@ -90,7 +90,9 @@ function Connection.Disconnect<T...>(self: ConnectionImpl<T...>): ()
 	local DenseSignal = self._DenseSignal
 	local index = self._index
 	local connections = DenseSignal._connections
-	if connections[index] ~= self then return end
+	if connections[index] ~= self then
+		return
+	end
 	local handlers = DenseSignal._handlers
 	if DenseSignal._depth > 0 then
 		-- Keep active Fire loops stable and skip this listener immediately.
@@ -132,7 +134,9 @@ function DenseSignal.DisconnectAll<T...>(self: DenseSignalImpl<T...>): ()
 		-- Active loops keep their old array, now containing only no-op callbacks.
 		-- New connections belong to a fresh array and cannot enter those loops.
 		local handlers = self._handlers
-		for i = 1, #handlers do handlers[i] = disconnected end
+		for i = 1, #handlers do
+			handlers[i] = disconnected
+		end
 		self._handlers = {}
 		self._connections = {}
 		self._pending = nil
@@ -152,7 +156,9 @@ function DenseSignal.Fire<T...>(self: DenseSignalImpl<T...>, ...: T...): ()
 	local handlers = self._handlers
 	-- No remaining indices need protection for zero or one callback.
 	local count = #handlers
-	if count == 0 then return end
+	if count == 0 then
+		return
+	end
 	if count == 1 then
 		handlers[1](...)
 		return
@@ -163,7 +169,9 @@ function DenseSignal.Fire<T...>(self: DenseSignalImpl<T...>, ...: T...): ()
 		local first = self._connections[1]
 		local handler = handlers[1]
 		handlers[2](...)
-		if first and self._connections[first._index] == first then handler(...) end
+		if first and self._connections[first._index] == first then
+			handler(...)
+		end
 		return
 	end
 	self._depth += 1
@@ -172,10 +180,14 @@ function DenseSignal.Fire<T...>(self: DenseSignalImpl<T...>, ...: T...): ()
 	self._depth = depth
 	if depth == 0 then
 		local pending = self._pending
-		if pending then compact(self, pending) end
+		if pending then
+			compact(self, pending)
+		end
 	end
 	-- Restore bookkeeping even when a synchronous callback raises an error.
-	if not ok then error(message, 0) end
+	if not ok then
+		error(message, 0)
+	end
 end
 
 function DenseSignal.Once<T...>(self: DenseSignalImpl<T...>, fn: (T...) -> ()): Connection

@@ -2,7 +2,7 @@
 --!native
 --!optimize 2
 
---	Synchronous DenseSignal optimized for dispatch through a dense array of callbacks. 	--
+-- Synchronous DenseSignal optimized for dispatch through a dense array of callbacks. 	--
 
 -- MIT License																			--
 
@@ -52,7 +52,7 @@ type ConnectionImpl<T...> = Connection & {
 
 local DenseSignal = {}
 DenseSignal.__index = DenseSignal
--- Allocate per-instance dispatch bookkeeping only when it is first needed.
+
 DenseSignal._depth = 0
 
 local Connection = {}
@@ -60,8 +60,6 @@ Connection.__index = Connection
 
 local function disconnected(...: any): () end
 
--- Remove deferred holes only after every dispatch using these indices finishes.
--- Each disconnected slot is processed once; ordinary disconnect stays O(1).
 local function compact<T...>(self: DenseSignalImpl<T...>, pending: { number }): ()
 	local handlers, connections = self._handlers, self._connections
 	local last = #handlers
@@ -73,7 +71,7 @@ local function compact<T...>(self: DenseSignalImpl<T...>, pending: { number }): 
 		end
 		if index < last then
 			local moved = connections[last]
-			if moved then
+			if type(moved) == "table" then
 				handlers[index] = handlers[last]
 				connections[index] = moved
 				moved._index = index
@@ -90,18 +88,19 @@ function Connection.Disconnect<T...>(self: ConnectionImpl<T...>): ()
 	local DenseSignal = self._DenseSignal
 	local index = self._index
 	local connections = DenseSignal._connections
-	if connections[index] ~= self then return end
+	if connections[index] ~= self then
+		return
+	end
 	local handlers = DenseSignal._handlers
 	if DenseSignal._depth > 0 then
-		-- Keep active Fire loops stable and skip this listener immediately.
 		handlers[index] = disconnected
 		connections[index] = false
 		local pending = DenseSignal._pending
-		if not pending then
-			pending = {}
-			DenseSignal._pending = pending
+		if pending then
+			pending[#pending + 1] = index
+		else
+			DenseSignal._pending = { index }
 		end
-		pending[#pending + 1] = index
 		self._index = 0
 		return
 	end
@@ -129,10 +128,10 @@ end
 
 function DenseSignal.DisconnectAll<T...>(self: DenseSignalImpl<T...>): ()
 	if self._depth > 0 then
-		-- Active loops keep their old array, now containing only no-op callbacks.
-		-- New connections belong to a fresh array and cannot enter those loops.
 		local handlers = self._handlers
-		for i = 1, #handlers do handlers[i] = disconnected end
+		for i = 1, #handlers do
+			handlers[i] = disconnected
+		end
 		self._handlers = {}
 		self._connections = {}
 		self._pending = nil
@@ -142,9 +141,12 @@ function DenseSignal.DisconnectAll<T...>(self: DenseSignalImpl<T...>): ()
 	table.clear(self._connections)
 end
 
-local function dispatchSmall<T...>(handlers: { (T...) -> () }, connections: { ConnectionImpl<T...> | false }, count: number, ...: T...): ()
-	-- A bounded snapshot in stack locals needs no table allocation or error cleanup.
-	-- Fetch callbacks only when invoked: earlier callbacks may disconnect/reorder them.
+local function dispatchSmall<T...>(
+	handlers: { (T...) -> () },
+	connections: { ConnectionImpl<T...> | false },
+	count: number,
+	...: T...
+): ()
 	local c1 = connections[1]
 	local c2 = connections[2]
 	local c3 = if count > 3 then connections[3] else false
@@ -157,74 +159,100 @@ local function dispatchSmall<T...>(handlers: { (T...) -> () }, connections: { Co
 	local c10 = if count > 10 then connections[10] else false
 	local c11 = if count > 11 then connections[11] else false
 	handlers[count](...)
-	if c11 then
+	if type(c11) == "table" then
 		local index = c11._index
-		if connections[index] == c11 then handlers[index](...) end
+		if connections[index] == c11 then
+			handlers[index](...)
+		end
 	end
-	if c10 then
+	if type(c10) == "table" then
 		local index = c10._index
-		if connections[index] == c10 then handlers[index](...) end
+		if connections[index] == c10 then
+			handlers[index](...)
+		end
 	end
-	if c9 then
+	if type(c9) == "table" then
 		local index = c9._index
-		if connections[index] == c9 then handlers[index](...) end
+		if connections[index] == c9 then
+			handlers[index](...)
+		end
 	end
-	if c8 then
+	if type(c8) == "table" then
 		local index = c8._index
-		if connections[index] == c8 then handlers[index](...) end
+		if connections[index] == c8 then
+			handlers[index](...)
+		end
 	end
-	if c7 then
+	if type(c7) == "table" then
 		local index = c7._index
-		if connections[index] == c7 then handlers[index](...) end
+		if connections[index] == c7 then
+			handlers[index](...)
+		end
 	end
-	if c6 then
+	if type(c6) == "table" then
 		local index = c6._index
-		if connections[index] == c6 then handlers[index](...) end
+		if connections[index] == c6 then
+			handlers[index](...)
+		end
 	end
-	if c5 then
+	if type(c5) == "table" then
 		local index = c5._index
-		if connections[index] == c5 then handlers[index](...) end
+		if connections[index] == c5 then
+			handlers[index](...)
+		end
 	end
-	if c4 then
+	if type(c4) == "table" then
 		local index = c4._index
-		if connections[index] == c4 then handlers[index](...) end
+		if connections[index] == c4 then
+			handlers[index](...)
+		end
 	end
-	if c3 then
+	if type(c3) == "table" then
 		local index = c3._index
-		if connections[index] == c3 then handlers[index](...) end
+		if connections[index] == c3 then
+			handlers[index](...)
+		end
 	end
-	if c2 then
+	if type(c2) == "table" then
 		local index = c2._index
-		if connections[index] == c2 then handlers[index](...) end
+		if connections[index] == c2 then
+			handlers[index](...)
+		end
 	end
-	if c1 then
+	if type(c1) == "table" then
 		local index = c1._index
-		if connections[index] == c1 then handlers[index](...) end
+		if connections[index] == c1 then
+			handlers[index](...)
+		end
 	end
 end
 
-local function dispatch<T...>(handlers: { (T...) -> () }, ...: T...): ()
+local function dispatch<T...>(handlers: { (T...) -> () }, ...: T...): nil
 	for i = #handlers, 1, -1 do
 		handlers[i](...)
 	end
+
+	return nil
 end
 
 function DenseSignal.Fire<T...>(self: DenseSignalImpl<T...>, ...: T...): ()
 	local handlers = self._handlers
-	-- No remaining indices need protection for zero or one callback.
+
 	local count = #handlers
-	if count == 0 then return end
+	if count == 0 then
+		return
+	end
 	if count == 1 then
 		handlers[1](...)
 		return
 	end
 	if count == 2 then
-		-- Snapshot the only pending callback in locals. Swap-remove remains safe
-		-- here, and connection identity rejects DisconnectAll/reconnect changes.
 		local first = self._connections[1]
 		local handler = handlers[1]
 		handlers[2](...)
-		if first and self._connections[first._index] == first then handler(...) end
+		if type(first) == "table" and self._connections[first._index] == first then
+			handler(...)
+		end
 		return
 	end
 	if count <= 12 then
@@ -237,10 +265,14 @@ function DenseSignal.Fire<T...>(self: DenseSignalImpl<T...>, ...: T...): ()
 	self._depth = depth
 	if depth == 0 then
 		local pending = self._pending
-		if pending then compact(self, pending) end
+		if pending then
+			compact(self, pending)
+		end
 	end
-	-- Restore bookkeeping even when a synchronous callback raises an error.
-	if not ok then error(message, 0) end
+
+	if not ok then
+		error(message, 0)
+	end
 end
 
 function DenseSignal.Once<T...>(self: DenseSignalImpl<T...>, fn: (T...) -> ()): Connection

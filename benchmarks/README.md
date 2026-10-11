@@ -1,7 +1,14 @@
 # LuneBlox benchmarks
 
-Run from the **repository root**. Scripts and default output files live here;
-signal implementations remain in the root directory.
+Run from the **repository root**. Scripts and default output files live here.
+`modules.luneblox.luau` centralizes the implementation paths: DenseSignal comes from
+`src/repstorage/DenseSignal/DenseSignal.luau`, and comparison signals come from
+`src/plrclient/benchmarks/`. FastSignal uses `Immediate.luau` with its `Deferred.luau`
+dependency; both sources are included in its source fingerprint. All dependencies
+use the selected native/interpreted mode and are loaded before measurements.
+
+In Studio, the suite loads `ReplicatedStorage.shared.DenseSignal`, as mapped by
+`default.project.json`, rather than the benchmark-local copy.
 
 ```sh
 # Compare the current source against the previous mutation-safe implementation.
@@ -13,7 +20,7 @@ luneblox run benchmarks/benchmark.extended.luneblox.luau native full
 luneblox run benchmarks/benchmark.extended.luneblox.luau native smoke
 
 # Original eight-workload suite.
-luneblox run benchmarks/benchmark.luneblox.luau native full
+luneblox run benchmarks/benchmark.luneblox.luau interpreted full
 ```
 
 The performance runner accepts an optional output prefix and baseline source as
@@ -21,11 +28,28 @@ its second and third arguments. Other runners accept an output prefix/path as
 their third argument. Existing outputs are never overwritten. Run benchmarks
 sequentially and avoid other CPU-intensive work while measuring.
 
-## Fire optimization results
+## Latest benchmark results
 
-[Native comparison](benchmark.fire.native.md) ·
-[Native raw samples](benchmark.fire.native.json) ·
-[Interpreted comparison](benchmark.fire.interpreted.md)
+The **interpreted full** eight-workload run uses LuneBlox `0.10.16+740`,
+100 handlers and 32 arguments, with **3,240 validated executions**.
+The seven-workload arithmetic means are 1.5 µs for DenseSignal, 14.9 µs for
+FastSignal.Immediate, 14.3 µs for GoodSignal, and 14.1 µs for SimpleSignal.
+These means are not an overall performance score.
+[Summary table](../README.md#benchmark) ·
+[Raw interpreted results](benchmark.interpreted.full.1791703334.json)
+
+The **native full** detailed run covers 29 workloads, P10–P90 timing ranges,
+behavioral probes, retained memory and GC diagnostics. All four implementations
+passed the nine behavioral checks. DenseSignal retains 208 bytes per empty signal;
+FastSignal, GoodSignal and SimpleSignal retain 112, 80 and 80 bytes respectively.
+[Detailed report](benchmark.extended.native.full.1791703372.md) ·
+[Raw native results](benchmark.extended.native.full.1791703372.json)
+
+The two runs use different execution modes and callback workloads; compare
+implementations within each run. FastSignal is the current vendored Immediate
+variant, and its fingerprint includes the Deferred module that supplies shared methods.
+
+## Before/after comparison
 
 The baseline in `fixtures/DenseSignal.before-fire-optimization.luau` already has
 the mutation-safety fix. It is a frozen measurement fixture, not production code.
@@ -33,12 +57,9 @@ The current source snapshots 3–12 pending listener slots into stack locals, ch
 connection identity before each invocation, and leaves the larger dispatch path
 unchanged. No per-Fire snapshot table or coroutine is allocated.
 
-In the captured native run, ten-listener dispatch improved from 297.6 to 262.0
-ns/op (-11.3% median paired change). A callback with payload checks improved from
-440.0 to 395.9 ns/op (-10.0%). Cases with 0–2 and 100–1,000 listeners remained
-within about 1% of their paired baseline. Interpreted execution is a tradeoff:
-the ten-listener cases were approximately 10–15% slower. This is an optimization
-for native execution, not an across-the-board performance claim.
+Use `performance.luneblox.luau` to generate a paired before/after report for the
+current source. The latest reports linked above compare the four implementations;
+they do not measure improvement against this frozen baseline.
 
 ## Measurement details
 
